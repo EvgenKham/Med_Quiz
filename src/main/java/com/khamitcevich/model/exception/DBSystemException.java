@@ -1,4 +1,4 @@
-package com.khamitcevich.exception;
+package com.khamitcevich.model.exception;
 
 public class DBSystemException extends DBException{
     public DBSystemException(String message) {

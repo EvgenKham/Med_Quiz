@@ -1,4 +1,4 @@
-package com.khamitcevich.model.daoJdbc;
+package com.khamitcevich.model.pools;
 
 import java.sql.Connection;
 import java.sql.SQLException;

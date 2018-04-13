@@ -1,4 +1,4 @@
-package com.khamitcevich.model;
+package com.khamitcevich.model.entitiesDB;
 
 public class Answer {
     private final int id;

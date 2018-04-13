@@ -1,4 +1,4 @@
-package com.khamitcevich.exception;
+package com.khamitcevich.model.exception;
 
 public class NotUniqueUserEmailException  extends DBException{
     public NotUniqueUserEmailException(String message) {

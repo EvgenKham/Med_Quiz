@@ -1,13 +1,13 @@
-package com.khamitcevich.model;
+package com.khamitcevich.model.entitiesDB;
 
-import javax.xml.crypto.Data;
+import java.util.Date;
 
 public class Result {
     private final int id;
     private String typeTest;
     private float percent;
-    private Data data;
-    private final int idUser = 0;
+    private Date date;
+    private int idUser;
 
     public Result (int id) {
         this.id = id;
@@ -33,16 +33,20 @@ public class Result {
         this.percent = percent;
     }
 
-    public Data getData() {
-        return data;
+    public Date getDate() {
+        return date;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getIdUser() {
         return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     @Override
@@ -51,7 +55,7 @@ public class Result {
                 "id=" + id +
                 ", typeTest='" + typeTest + '\'' +
                 ", percent=" + percent +
-                ", data=" + data +
+                ", data=" + date +
                 ", idUser=" + idUser +
                 '}';
     }

@@ -1,12 +1,16 @@
-package com.khamitcevich.model;
+package com.khamitcevich.model.entitiesDB;
 
 public class Role {
     private final int id;
     private String type;
-    private final int idUser = 0;
 
     public Role (int id) {
         this.id = id;
+    }
+
+    public Role newRole (String type) {
+        this.type = type;
+        return this;
     }
 
     public int getId() {
@@ -21,16 +25,11 @@ public class Role {
         this.type = type;
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
-
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", type='" + type + '\'' +
-                ", idUser=" + idUser +
+                ", type='" + type +
                 '}';
     }
 }

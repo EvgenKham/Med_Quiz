@@ -1,7 +1,8 @@
 package com.khamitcevich.model.daoJdbc;
 
-import com.khamitcevich.exception.*;
-import com.khamitcevich.model.User;
+import com.khamitcevich.model.exception.*;
+import com.khamitcevich.model.entitiesDB.User;
+import com.khamitcevich.model.pools.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,11 +42,13 @@ public class UserDaoJdbc implements UserDao {
                 String password = rs.getString("password");
                 String email = rs.getString("email");
                 int timesheetNumber = rs.getInt("timesheetNumber");
+                int idRole = rs.getInt("idRole");                   //???
                 User user = new User(id);
                 user.setLogin(login);
                 user.setPassword(password);
                 user.setEmail(email);
                 user.setTimesheetNumber(timesheetNumber);
+                user.setIdRole(idRole);
                 result.add(user);
             }
             conn.commit();

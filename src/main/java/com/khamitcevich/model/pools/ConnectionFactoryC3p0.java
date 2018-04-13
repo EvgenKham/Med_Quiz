@@ -1,9 +1,9 @@
-package com.khamitcevich.model.daoJdbc;
+package com.khamitcevich.model.pools;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class ConnectionFactoryC3p0 implements ConnectionFactory{
+public class ConnectionFactoryC3p0 implements ConnectionFactory {
 
     @Override
     public Connection newConnection() throws SQLException {

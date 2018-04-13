@@ -1,4 +1,4 @@
-package com.khamitcevich.model.daoJdbc;
+package com.khamitcevich.model.pools;
 
 import org.apache.commons.dbcp.BasicDataSource;
 

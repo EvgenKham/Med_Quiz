@@ -1,5 +1,10 @@
 package com.khamitcevich.model.daoJdbc;
 
+import com.khamitcevich.model.pools.ConnectionFactory;
+import com.khamitcevich.model.pools.ConnectionFactoryC3p0;
+import com.khamitcevich.model.pools.ConnectionFactoryDbcp;
+import com.khamitcevich.model.pools.ConnectionFactoryHikariCP;
+
 import java.sql.SQLException;
 
 public class ConnectionAbstractFactory {
