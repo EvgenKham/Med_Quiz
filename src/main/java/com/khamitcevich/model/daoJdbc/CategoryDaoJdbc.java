@@ -1,30 +1,27 @@
 package com.khamitcevich.model.daoJdbc;
 
-import com.khamitcevich.model.entitiesDB.Role;
-import com.khamitcevich.model.exception.*;
+import com.khamitcevich.model.entitiesDB.Category;
+import com.khamitcevich.model.exception.DBSystemException;
+import com.khamitcevich.model.exception.NotUniqueCategoryException;
 import com.khamitcevich.model.pools.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.sql.Statement.*;
-
-public class RoleDaoJdbc implements RoleDao {
+public class CategoryDaoJdbc implements CategoryDao {
 
     private final ConnectionFactory factory = ConnectionAbstractFactory.newConnectionFactory();
 
-    public static final String SELECT_ALL_SQL = "Select * From testingmedicaleployees.role";
-    public static final String DELETE_BY_ID_SQL = "Delete From testingmedicaleployees.role Where id = ?";
-    public static final String INSERT_SQL = "Insert into testingmedicaleployees.role (type) values (?)";
-    public static final String SELECT_BY_TYPE = "SELECT id FROM testingmedicaleployees.user WHERE type = ?";
+    public static final String SELECT_ALL_SQL = "Select * From testingmedicaleployees.category";
+    public static final String DELETE_BY_ID_SQL = "Delete From testingmedicaleployees.category Where id = ?";
+    public static final String INSERT_SQL = "Insert into testingmedicaleployees.category (id, nameCategory) values (?, ?)";
+    public static final String SELECT_BY_NAME_CATEGORY = "SELECT id FROM testingmedicaleployees.category WHERE nameCategory = ?";
 
-    public RoleDaoJdbc() throws SQLException {
-
-    }
+    public CategoryDaoJdbc () throws SQLException {}
 
     @Override
-    public List<Role> selectAll() throws DBSystemException, SQLException {
+    public List<Category> selectAll() throws DBSystemException, SQLException {
         Connection conn = factory.newConnection();
         Statement statement = null;
         ResultSet rs = null;
@@ -34,21 +31,22 @@ public class RoleDaoJdbc implements RoleDao {
             conn.setAutoCommit(false);
             statement = conn.createStatement();
             rs = statement.executeQuery(SELECT_ALL_SQL);
-            List<Role> result = new ArrayList<Role>();
+            List<Category> res = new ArrayList<Category>();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String type = rs.getString("type");
-                Role role = new Role(id);
-                role.setType(type);
-
-                result.add(role);
+                String nameCategory = rs.getString("nameCategory");
+                Category category = new Category(id);
+                category.setName(nameCategory);
+                res.add(category);
             }
             conn.commit();
-            return result;
-        } catch (SQLException e) {
+            return res;
+        }
+        catch (SQLException e) {
             JdbcUtils.rollbackQuietly(conn);
             throw new DBSystemException("Can't execute SQL '" + SELECT_ALL_SQL + "'" + e);
-        } finally {
+        }
+        finally {
             JdbcUtils.closeQuietly(rs);
             JdbcUtils.closeQuietly(statement);
             JdbcUtils.closeQuietly(conn);
@@ -58,27 +56,28 @@ public class RoleDaoJdbc implements RoleDao {
     @Override
     public int deleteById(int id) throws DBSystemException, SQLException {
         Connection conn = factory.newConnection();
-        PreparedStatement preparedStatements = null;
+        PreparedStatement ps = null;
         try {
             conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             conn.setAutoCommit(false);
-            preparedStatements = conn.prepareStatement(DELETE_BY_ID_SQL);
-            preparedStatements.setInt(1, id);
-            int result = preparedStatements.executeUpdate();
+            ps = conn.prepareStatement(DELETE_BY_ID_SQL);
+            ps.setInt(1, id);
+            int result = ps.executeUpdate();
             conn.commit();
             return result;
-
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             JdbcUtils.rollbackQuietly(conn);
             throw new DBSystemException("Can't execute SQL '" + DELETE_BY_ID_SQL + "'" + e);
-        } finally {
-            JdbcUtils.closeQuietly(preparedStatements);
+        }
+        finally {
+            JdbcUtils.closeQuietly(ps);
             JdbcUtils.closeQuietly(conn);
         }
     }
 
     @Override
-    public int insert(Role role) throws DBSystemException, SQLException, NotUniqueRoleTypeException {
+    public int insert(Category category) throws DBSystemException, SQLException, NotUniqueCategoryException {
         Connection conn = factory.newConnection();
         PreparedStatement ps = null;
         ResultSet resultSet = null;
@@ -87,12 +86,12 @@ public class RoleDaoJdbc implements RoleDao {
             conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             conn.setAutoCommit(false);
 
-            if (existWithType0(conn, role.getType())) {
-                throw new NotUniqueRoleTypeException("Type '" + role.getType() + "'");
+            if (existWithCategory0(conn, category.getName())) {
+                throw new NotUniqueCategoryException("Category '" + category.getName() + "'");
             }
 
             ps = conn.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, role.getType());
+            ps.setString(1, category.getName());
             ps.executeUpdate();
             //Получение первичного ключа сгенерированного базой
             resultSet = ps.getGeneratedKeys();
@@ -114,42 +113,44 @@ public class RoleDaoJdbc implements RoleDao {
     }
 
     @Override
-    public int[] insert(List<Role> roles) throws DBSystemException, SQLException, NotUniqueRoleTypeException {
+    public int[] insert(List<Category> categories) throws DBSystemException, SQLException, NotUniqueCategoryException {
         Connection conn = factory.newConnection();
         PreparedStatement ps = null;
-        int count[] = null;
+        ResultSet resultSet = null;
+        int res[] = null;
         try {
             conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             conn.setAutoCommit(false);
 
-            for (Role role : roles) {
+            for (Category category : categories) {
 
-                if (existWithType0(conn, role.getType())) {
-                    throw new NotUniqueRoleTypeException("Type '" + role.getType() + "'");
+                if (existWithCategory0(conn, category.getName())) {
+                    throw new NotUniqueCategoryException("Category '" + category.getName() + "'");
                 }
-
-                ps = conn.prepareStatement(INSERT_SQL, RETURN_GENERATED_KEYS);
-                ps.setString(1, role.getType());
+                ps = conn.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, category.getName());
                 ps.addBatch();
-                count = ps.executeBatch();
-                }
-                conn.commit();
-                return count;
+                res = ps.executeBatch();
             }
+
+            conn.commit();
+            return res;
+        }
         catch (SQLException e) {
             JdbcUtils.rollbackQuietly(conn);
-            throw new DBSystemException("Can't execute SQL '" + INSERT_SQL + "'" + e);
+            throw new DBSystemException("Can't execute SQL '" + SELECT_ALL_SQL + "'" + e);
         }
         finally {
+            JdbcUtils.closeQuietly(resultSet);
             JdbcUtils.closeQuietly(ps);
             JdbcUtils.closeQuietly(conn);
         }
     }
 
-    private boolean existWithType0 (Connection conn, String type) throws SQLException {
-            PreparedStatement st = conn.prepareStatement(SELECT_BY_TYPE);
-            st.setString(1, type);
-            ResultSet rs = st.executeQuery();
-            return rs.next();
-        }
+    private boolean existWithCategory0(Connection conn, String name) throws SQLException{
+        PreparedStatement st = conn.prepareStatement(SELECT_BY_NAME_CATEGORY);
+        st.setString(1, name);
+        ResultSet rs = st.executeQuery();
+        return rs.next();
+    }
 }

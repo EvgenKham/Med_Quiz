@@ -8,11 +8,6 @@ public class Role {
         this.id = id;
     }
 
-    public Role newRole (String type) {
-        this.type = type;
-        return this;
-    }
-
     public int getId() {
         return id;
     }

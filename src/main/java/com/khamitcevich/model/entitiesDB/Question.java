@@ -1,8 +1,9 @@
 package com.khamitcevich.model.entitiesDB;
 
 public class Question {
+
     private final int id;
-    private final int idCategory = 0;
+    private int idCategory;
     private String body;
 
     public Question (int id ) {
@@ -15,6 +16,10 @@ public class Question {
 
     public int getIdCategory() {
         return idCategory;
+    }
+
+    public void setIdCategory(int idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getBody() {

@@ -14,11 +14,11 @@ public class UserDaoJdbc implements UserDao {
 
     public static final String SELECT_ALL_SQL = "Select * From testingmedicaleployees.user";
     public static final String DELETE_BY_ID_SQL = "Delete From testingmedicaleployees.user Where id = ?";
-    public static final String INSERT_SQL = "Insert into testingmedicaleployees.user (login, password, email, timesheetNumber) values (?, ?, ?, ?)";
+    public static final String INSERT_SQL = "Insert into testingmedicaleployees.user (login, password, email, timesheetNumber, idRole) values (?, ?, ?, ?, ?)";
     public static final String SELECT_BY_EMAIL = "SELECT id FROM testingmedicaleployees.user WHERE email = ?";
     public static final String SELECT_BY_LOGIN = "SELECT id FROM testingmedicaleployees.user WHERE login = ?";
     public static final String SELECT_BY_PASSWORD = "SELECT id FROM testingmedicaleployees.user WHERE password = ?";
-    public static final String SELECT_BY_TIMESHEETNUMBER = "SELECT id FROM testingmedicaleployees.user WHERE timesheetNumber = ?";
+    public static final String SELECT_BY_TIMESHEET_NUMBER = "SELECT id FROM testingmedicaleployees.user WHERE timesheetNumber = ?";
 
     public UserDaoJdbc() throws SQLException {
     }
@@ -116,6 +116,7 @@ public class UserDaoJdbc implements UserDao {
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
             ps.setInt(4, user.getTimesheetNumber());
+            ps.setInt(5, user.getIdRole());
             ps.executeUpdate();
             //Получение первичного ключа сгенерированного базой
             rs = ps.getGeneratedKeys();
@@ -164,6 +165,7 @@ public class UserDaoJdbc implements UserDao {
                 ps.setString(2, user.getPassword());
                 ps.setString(3, user.getEmail());
                 ps.setInt(4, user.getTimesheetNumber());
+                ps.setInt(5, user.getIdRole());
                 ps.addBatch();
                 count = ps.executeBatch();
             }
@@ -202,7 +204,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     private boolean existWithTimesheetNumber0(Connection conn, int timesheetNumber) throws SQLException {
-        PreparedStatement st = conn.prepareStatement(SELECT_BY_TIMESHEETNUMBER);
+        PreparedStatement st = conn.prepareStatement(SELECT_BY_TIMESHEET_NUMBER);
         st.setInt(1, timesheetNumber);
         ResultSet rs = st.executeQuery();
         return rs.next();

@@ -2,7 +2,7 @@ package com.khamitcevich.model.entitiesDB;
 
 public class Answer {
     private final int id;
-    private final int idQuestion = 0;
+    private int idQuestion;
     private String version;
     private String isRight;
 
@@ -16,6 +16,10 @@ public class Answer {
 
     public int getIdQuestion() {
         return idQuestion;
+    }
+
+    public void setIdQuestion(int idQuestion) {
+        this.idQuestion = idQuestion;
     }
 
     public String getVersion() {
