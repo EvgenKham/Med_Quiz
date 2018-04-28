@@ -32,7 +32,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
+        return "QuestionDao{" +
                 "id=" + id +
                 ", idCategory=" + idCategory +
                 ", body='" + body + '\'' +

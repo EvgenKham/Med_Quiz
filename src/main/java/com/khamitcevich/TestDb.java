@@ -1,8 +1,6 @@
 package com.khamitcevich;
 
 import com.khamitcevich.model.entitiesDB.User;
-import com.khamitcevich.model.daoJdbc.UserDao;
-import com.khamitcevich.model.daoJdbc.UserDaoJdbc;
 import com.khamitcevich.model.exception.*;
 
 import java.sql.SQLException;
@@ -12,18 +10,18 @@ import java.util.List;
 public class TestDb {
     public static void main(String[] args) throws DBSystemException, SQLException {
 
-        UserDao dao = new UserDaoJdbc();
-
-        System.out.println("All Current Users: ");
-        for (User us: dao.selectAll()) {
-            System.out.println("  " + us.toString());
-        }
-
-        System.out.println("Delete: ");
-        for (User us: dao.selectAll()) {
-            dao.deleteById(us.getId());
-            System.out.println("  User with id = " + us.getId() + " delete");
-        }
+//        UserDao dao = new UserDaoJdbc();
+//
+//        System.out.println("All Current Users: ");
+//        for (User us: dao.selectAll()) {
+//            System.out.println("  " + us.toString());
+//        }
+//
+//        System.out.println("Delete: ");
+//        for (User us: dao.selectAll()) {
+//            dao.deleteById(us.getId());
+//            System.out.println("  User with id = " + us.getId() + " delete");
+//        }
 
 //        System.out.println("Insert new ");
 //        User user1 = new User(4);
