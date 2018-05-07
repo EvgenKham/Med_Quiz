@@ -2,7 +2,6 @@ package com.khamitcevich.model;
 
 import com.khamitcevich.model.entitiesDB.Answer;
 import com.khamitcevich.model.exception.DBSystemException;
-import com.khamitcevich.model.jdbc.AbstractDao;
 import com.khamitcevich.model.jdbc.AnswerDao;
 import com.khamitcevich.model.jdbc.ManipulationAnswer;
 

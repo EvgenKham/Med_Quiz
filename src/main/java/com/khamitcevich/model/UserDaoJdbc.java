@@ -2,7 +2,6 @@ package com.khamitcevich.model;
 
 import com.khamitcevich.model.entitiesDB.User;
 import com.khamitcevich.model.exception.*;
-import com.khamitcevich.model.jdbc.AbstractDao;
 import com.khamitcevich.model.jdbc.ManipulationUser;
 import com.khamitcevich.model.jdbc.UserDao;
 

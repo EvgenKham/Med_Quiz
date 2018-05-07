@@ -6,7 +6,7 @@ import com.khamitcevich.model.exception.DBSystemException;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface CategotyDao extends Dao<Category> {
+public interface CategoryDao extends Dao<Category> {
 
     List<Category> selectAll () throws DBSystemException, SQLException;
 

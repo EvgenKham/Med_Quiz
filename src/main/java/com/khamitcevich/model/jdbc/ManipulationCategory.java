@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ManipulationCategoty extends Manipulation<Category> {
+public class ManipulationCategory extends Manipulation<Category> {
     @Override
     public Category extractOne(ResultSet rs) throws SQLException {
         Category category = new Category(rs.getInt("id"));

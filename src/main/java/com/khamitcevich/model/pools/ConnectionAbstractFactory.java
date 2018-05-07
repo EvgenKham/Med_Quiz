@@ -1,4 +1,4 @@
-package com.khamitcevich.model.jdbc;
+package com.khamitcevich.model.pools;
 
 import com.khamitcevich.model.pools.ConnectionFactory;
 import com.khamitcevich.model.pools.ConnectionFactoryC3p0;

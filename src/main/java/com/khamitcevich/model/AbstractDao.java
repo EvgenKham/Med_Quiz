@@ -1,6 +1,9 @@
-package com.khamitcevich.model.jdbc;
+package com.khamitcevich.model;
 
 import com.khamitcevich.model.exception.*;
+import com.khamitcevich.model.jdbc.JdbcUtils;
+import com.khamitcevich.model.jdbc.Manipulation;
+import com.khamitcevich.model.pools.ConnectionAbstractFactory;
 import com.khamitcevich.model.pools.ConnectionFactory;
 
 import java.sql.*;
@@ -10,7 +13,7 @@ import java.util.List;
 public abstract class AbstractDao<T> {
     private final ConnectionFactory factory = ConnectionAbstractFactory.newConnectionFactory();
 
-     protected AbstractDao() throws SQLException {
+    protected AbstractDao() throws SQLException {
     }
 
     protected Connection getSerializableConnection () throws DBSystemException {

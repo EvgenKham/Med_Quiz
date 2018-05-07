@@ -3,9 +3,8 @@ package com.khamitcevich.model;
 import com.khamitcevich.model.entitiesDB.Category;
 import com.khamitcevich.model.exception.DBSystemException;
 import com.khamitcevich.model.exception.NotUniqueCategoryException;
-import com.khamitcevich.model.jdbc.AbstractDao;
-import com.khamitcevich.model.jdbc.CategotyDao;
-import com.khamitcevich.model.jdbc.ManipulationCategoty;
+import com.khamitcevich.model.jdbc.CategoryDao;
+import com.khamitcevich.model.jdbc.ManipulationCategory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategotyDaoJdbc extends AbstractDao<Category> implements CategotyDao {
+public class CategoryDaoJdbc extends AbstractDao<Category> implements CategoryDao {
 
     private static final String SELECT_ALL_SQL = "Select * From testingmedicaleployees.category";
     private static final String SELECT_BY_ID_SQL = "Select * From testingmedicaleployees.category Where id = ?";
@@ -22,17 +21,17 @@ public class CategotyDaoJdbc extends AbstractDao<Category> implements CategotyDa
     private static final String INSERT_SQL = "Insert into testingmedicaleployees.category (id, nameCategory) values (?, ?)";
     private static final String SELECT_BY_NAME_CATEGORY = "SELECT id FROM testingmedicaleployees.category WHERE nameCategory = ?";
 
-    public CategotyDaoJdbc() throws SQLException {
+    public CategoryDaoJdbc() throws SQLException {
     }
 
     @Override
     public List<Category> selectAll() throws DBSystemException, SQLException {
-        return selectAll(SELECT_ALL_SQL, new ManipulationCategoty());
+        return selectAll(SELECT_ALL_SQL, new ManipulationCategory());
     }
 
     @Override
     public Category selectById (int id) throws DBSystemException, SQLException{
-        return selectById(SELECT_BY_ID_SQL, new ManipulationCategoty(), id);
+        return selectById(SELECT_BY_ID_SQL, new ManipulationCategory(), id);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class CategotyDaoJdbc extends AbstractDao<Category> implements CategotyDa
         Connection conn = getSerializableConnection();
 
         if(uniqueData(conn, category))
-            return insertOne(conn, category, new ManipulationCategoty(), INSERT_SQL);
+            return insertOne(conn, category, new ManipulationCategory(), INSERT_SQL);
         else
             return 0;
     }
@@ -57,7 +56,7 @@ public class CategotyDaoJdbc extends AbstractDao<Category> implements CategotyDa
 
         for (Category category : categories) {
             if(uniqueData(conn, category))
-                result.add(insertOne(conn, category, new ManipulationCategoty(), INSERT_SQL));
+                result.add(insertOne(conn, category, new ManipulationCategory(), INSERT_SQL));
         }
         return result;
     }

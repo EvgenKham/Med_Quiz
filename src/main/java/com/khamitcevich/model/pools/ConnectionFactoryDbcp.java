@@ -6,13 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ConnectionFactoryDbcp implements ConnectionFactory {
-    private static final String URL_JDBC = "jdbc:mysql://localhost:3306/testingmedicaleployees" +
-            "?verifyServerCertificate=false" +
-            "&useSSL=false" +
-            "&requireSSL=false" +
-            "&useLegacyDatetimeCode=false" +
-            "&amp" +
-            "&serverTimezone=UTC";
+    private static final String URL_JDBC = "jdbc:mysql://localhost:3306/testingmedicaleployees";
     private static final String LOGIN = "root";
     private static final String PASSWORD = "";
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";

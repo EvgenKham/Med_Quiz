@@ -3,7 +3,6 @@ package com.khamitcevich.model;
 import com.khamitcevich.model.entitiesDB.Question;
 import com.khamitcevich.model.exception.DBSystemException;
 import com.khamitcevich.model.exception.NotUniqueQuestionException;
-import com.khamitcevich.model.jdbc.AbstractDao;
 import com.khamitcevich.model.jdbc.ManipulationQuestion;
 import com.khamitcevich.model.jdbc.QuestionDao;
 

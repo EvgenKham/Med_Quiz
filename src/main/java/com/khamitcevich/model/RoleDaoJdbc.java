@@ -2,7 +2,6 @@ package com.khamitcevich.model;
 
 import com.khamitcevich.model.entitiesDB.Role;
 import com.khamitcevich.model.exception.*;
-import com.khamitcevich.model.jdbc.AbstractDao;
 import com.khamitcevich.model.jdbc.ManipulationRole;
 import com.khamitcevich.model.jdbc.RoleDao;
 
